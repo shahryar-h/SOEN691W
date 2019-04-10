@@ -97,7 +97,10 @@ request(seasonUrl, (error, response, html) => {
   if(!error && response.statusCode == 200) {
     const $ = cheerio.load(html);
     $title = $('type').text();
-    console.log($title);
+    $resolution = $('resolution').text();
+    console.log($resolution);
+
+
 
 
 }});
