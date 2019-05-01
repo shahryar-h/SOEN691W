@@ -91,14 +91,67 @@ for (var i = 0; i < output.length; i++) {
   defects.push(defect);
 }
 
+// console.log(defects);
 
 var allFiles = [];
-var samp = defects[0];
-
-for (var i = 0; i < samp[samp.length-1].length; i++) {
-  allFiles.push(samp[samp.length-1][i]);
-  allFiles.push(samp[0]);
+// var samp = defects[0];
+// console.log(samp);
+for (var i = 0; i < defects.length; i++) {
+  //allFiles.push(defects[i][defects[i].length-1]);
+  for (var j = 0; j < defects[i][defects[i].length-1].length; j++) {
+    allFiles.push(defects[i][defects[i].length-1][j]);
+    allFiles.push(defects[i][0]);
+  }
 }
+
+// console.log(allFiles);
+
+
+var result = [];
+var count = 1;
+for (var i = 0; i < allFiles.length; i=i+2) {
+  for (var j = i+2; j < allFiles.length; j+=2) {
+    if (allFiles[j] == allFiles[i]) {
+      // cheaking the emails
+      if (allFiles[j+1] != allFiles[i+1]) {
+
+        count++;
+
+
+      }
+      allFiles.splice(j,2);
+    }
+  }
+  result.push(allFiles[i])
+  result.push(count);
+  count = 1;
+}
+
+// console.log(result);
+
+var output = '';
+for (var i = 0; i < result.length; i+=2) {
+  output = output + result[i] + ',' + result[i+1] + '\n';
+
+}
+
+
+fs.writeFile("Authors.csv", output, function(err) {
+    if(err) {
+        return console.log(err);
+    }
+
+    console.log("The file was saved!");
+});
+
+// var filesAuthors = [];
+// for (var i = 0; i < 2; i++) {
+//
+//   for (var i = 0; i < allFiles[i][0].length; i++) {
+//     filesAuthors.push();
+//   }
+//   console.log(allFiles[i]);
+// }
 // var count = 1;
 // for (var i = 0; i < allfiles.length; i=i+2) {
 //   allfiles[i]
@@ -111,30 +164,8 @@ for (var i = 0; i < samp[samp.length-1].length; i++) {
 
 // console.log(allFiles);
 
-var result = "";
-var count = 1;
-for (var i = 0; i < allFiles.length; i=i+2) {
-  // for (var j in allFiles ) {
-  //   if (allFiles[j+2] == (allFiles[i])) {
-  //     console.log("I say " + allFiles[j+2] + "is equal to: " + allFiles[i]);
-  //     count++;
-  //   }
-  // }
 
-
-
-  for (var j = i+2; j < allFiles.length; j+=2) {
-    if (allFiles[j] == allFiles[i]) {
-      console.log("I say " + allFiles[j] + "is equal to: " + allFiles[i]);
-      // cheaking the emails
-      if (allFiles[j+1] != allFiles[i+1]) {
-        count++;
-      }
-
-    }
-  }
-}
-console.log(count);
+// console.log(count);
 
 // console.log(defects);
 // var urlAndAssociatedFiles = [];
