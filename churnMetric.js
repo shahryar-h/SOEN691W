@@ -11,7 +11,7 @@ require.extensions['.txt'] = function (module, filename) {
     module.exports = fs.readFileSync(filename, 'utf8');
 };
 
-var churns = require("./as.txt").toString();
+var churns = require("./churns.txt").toString();
 churns = churns.trim();
 churns = churns.split(/\n/);
 
@@ -42,6 +42,19 @@ for (var i = 0; i < churns.length; i++) {
 }
 
 console.log(churnesOutCome);
+var result = '';
+for (var i = 0; i < churnesOutCome.length; i++) {
+  result = result + churnesOutCome[i][0] + ',' + churnesOutCome[i][1] + '\n';
+
+}
+
+fs.writeFile("churnMetrics.csv", result, function(err) {
+    if(err) {
+        return console.log(err);
+    }
+
+    console.log("The file was saved!");
+});
 // fs.writeFile("churnMetrics.txt", churns, function(err) {
 //     if(err) {
 //         return console.log(err);
