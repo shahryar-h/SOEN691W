@@ -43,8 +43,20 @@ filesOutCome.push(filenames);
 
   }
 }
+filesOutCome = filesOutCome[0];
+var result = '';
+for (var i = 0; i < filesOutCome.length; i=i+2) {
+  result = result + filesOutCome[i] + ',' + filesOutCome[i+1] + '\n';
 
-console.log(filesOutCome[0]);
+}
+
+fs.writeFile("changeMetrics.csv", result, function(err) {
+    if(err) {
+        return console.log(err);
+    }
+
+    console.log("The file was saved!");
+});
 // fs.writeFile("test2.txt", changes, function(err) {
 //     if(err) {
 //         return console.log(err);
