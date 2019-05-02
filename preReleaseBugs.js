@@ -142,7 +142,7 @@ async function delayedLog(item,end) {
   }});
   if (end === 0) {
     console.log("files: " + filesWithBug.length);
-    fs.writeFile("filesWithPostReleaseDefects.txt", filesWithBug, function(err) {
+    fs.writeFile("filesWithPreReleaseDefects.txt", filesWithBug, function(err) {
     if(err) {
         return console.log(err);
     }
