@@ -36,13 +36,4 @@ fs.writeFile("preRleaseDefects.csv", result, function(err) {
 
     console.log("The file was saved!");
 });
-//console.log(count);
-// var j = Object.keys(count).map(function(k){
-//     return count[k];
-// }).join(',');
-// console.log(j);
-// var writer = "";
-// for key, value in count.items():
-//    writer.writerow([key, value])
-// console.log(writer);
-// fastcsv.write(result).pipe(ws);
+
