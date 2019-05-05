@@ -55,10 +55,4 @@ fs.writeFile("churnMetrics.csv", result, function(err) {
 
     console.log("The file was saved!");
 });
-// fs.writeFile("churnMetrics.txt", churns, function(err) {
-//     if(err) {
-//         return console.log(err);
-//     }
-//
-//     console.log("The file was saved!");
-// });
+
