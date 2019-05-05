@@ -126,9 +126,10 @@ async function delayedLog(item,end) {
           $resolved = $('resolved').text();
           var mydate = new Date($resolved);
           var anotherDate = new Date('Tue Apr 21 2015');
-          if (mydate > anotherDate) {
+          if (mydate < anotherDate) {
             //console.log(item[1]);
             filesWithBug.push(item[1]);
+            console.log("Bug Found!!");
           }else {
         console.log(" has date error");
       }
