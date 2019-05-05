@@ -1,0 +1,113 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*.
+
+understandMetrics = read.csv("/Users/shahryarhaghighifard/Desktop/report.csv")
+```{r}
+
+
+
+understandMetrics = read.csv("/Users/shahryarhaghighifard/Desktop/report.csv")
+understandMetrics = understandMetrics[-c(6328: dim(understandMetrics)[1]), ]
+dropcol=c(1,12,13,14,19,24,29,36,37,38,43,44,45,46,47,52,53,55,56)
+understandMetrics= understandMetrics[ , -dropcol]
+
+dataFrame=as.data.frame(matrix(0,nrow=6327,ncol=1))
+newData = cbind(understandMetrics, dataFrame)
+colnames(newData)[43] <- "post_release_bugs"
+
+
+```
+
+```{r}
+
+
+
+defects = read.csv("/Users/shahryarhaghighifard/Documents/Drive/sites/webScraping/my.csv")
+
+d = newData
+ for(i in 1:nrow(d)){
+    for(j in 1:nrow(defects)){
+      if( d[i,2] == defects[j,1])
+        d[i,43]= defects[j,2]
+        print('found')
+        break
+    }
+ }
+
+
+```
+
+
+
+
+
+
+
+
+
+```{r}
+savedData = read.csv("/Users/shahryarhaghighifard/Documents/Drive/sites/webScraping/newData.csv")
+cleanData= savedData[complete.cases(savedData), ]
+
+drop=c(1,2,3)
+cleanData = cleanData[,!(names(cleanData) %in% drop)]
+cleanData= cleanData[ , -drop]
+drop=c("post_release_bugs")
+independant = cleanData[,!(names(cleanData) %in% drop)]
+
+```
+
+
+
+```{r}
+
+
+
+correlations <- cor(independant, method="spearman")
+
+highCorr <- findCorrelation(correlations, cutoff = .75)
+
+# now we have data for redundancy analysis
+low_cor_names=names(independant[, -highCorr])
+low_cor_data = independant[(names(independant) %in% low_cor_names)]
+dataforredun = low_cor_data
+
+redun_obj = redun (~. ,data = dataforredun ,nk =0)
+after_redun= dataforredun[,!(names(dataforredun) %in% redun_obj $Out)]
+
+
+
+newform=post_release_bugs>0~AvgCyclomaticModified+AvgLineBlank+CountDeclClassVariable+CountDeclMethodDefault+CountDeclMethodPrivate+CountDeclMethodProtected+CountLineComment+MaxNesting
+newmodel=glm(formula=newform, data=log10(cleanData+1), family = binomial(link = "logit"))
+summary(newmodel)
+print(newmodel$deviance/newmodel$null.deviance)
+anova(newmodel)
+
+
+
+
+
+
+
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
