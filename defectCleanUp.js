@@ -28,7 +28,7 @@ Object.keys(count).forEach(function(fileName) {
     result = result + fileName + ',' + count[fileName] + '\n';
 
 });
-// console.log(result);
+
 fs.writeFile("my.csv", result, function(err) {
     if(err) {
         return console.log(err);
@@ -36,13 +36,4 @@ fs.writeFile("my.csv", result, function(err) {
 
     console.log("The file was saved!");
 });
-//console.log(count);
-// var j = Object.keys(count).map(function(k){
-//     return count[k];
-// }).join(',');
-// console.log(j);
-// var writer = "";
-// for key, value in count.items():
-//    writer.writerow([key, value])
-// console.log(writer);
-// fastcsv.write(result).pipe(ws);
+
